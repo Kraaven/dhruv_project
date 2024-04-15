@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AirportController extends Controller
+class FlightController extends Controller
 {
-    
+    //
 }
