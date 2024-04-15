@@ -1,0 +1,13 @@
+{
+    "airlines": [
+        {
+            "name": "IndiGo"
+        },
+        {
+            "name": "Vistara"
+        },
+        {
+            "name": "Air India"
+        }
+    ]
+}

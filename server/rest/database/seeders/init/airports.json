@@ -1,0 +1,13 @@
+{
+    "airports": [
+        {
+            "name": "Chennai International Airport"
+        },
+        {
+            "name": "Aurangabad Airport"
+        },
+        {
+            "name": "Jalgaon Airport"
+        }
+    ]
+}

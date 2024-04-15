@@ -1,0 +1,19 @@
+{
+    "planes": [
+        {
+            "name": "Airbus A320 CEO",
+            "capacity": 100,
+            "airline_id": 1
+        },
+        {
+            "name": "Airbus A320 NEO",
+            "capacity": 200,
+            "airline_id": 1
+        },
+        {
+            "name": "51 Airbus A320 NEO",
+            "capacity": 170,
+            "airline_id": 2
+        }
+    ]
+}
