@@ -7,12 +7,12 @@
         },
         {
             "name": "Airbus A320 NEO",
-            "capacity": 200,
+            "capacity": 100,
             "airline_id": 1
         },
         {
             "name": "51 Airbus A320 NEO",
-            "capacity": 170,
+            "capacity": 100,
             "airline_id": 2
         }
     ]
