@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Navbar } from "@/components/navbar";
 
 const page = ({ params }) => {
   const { airportId } = params;
@@ -70,58 +71,61 @@ const page = ({ params }) => {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center">
-      <div className="flex flex-col space-y-5">
-        <h2 className="text-3xl">Choose your flight</h2>
-        <div className="flights-container flex flex-col space-y-10">
-          {flights.map((flight) => (
-            <div className="flex flex-col space-y-2">
-              <p>From {flight.departure_airport_name}</p>
-              <p>To {flight.destination_airport_name}</p>
-              <p>Departure {flight.flight_destination}</p>
-              <p>Arrival {flight.flight_arrival}</p>
-              <p>Plane {flight.plane_name}</p>
+    <div className="">
+      <Navbar />
+      <div className="h-screen flex flex-col justify-center items-center">
+        <div className="flex flex-col space-y-5">
+          <h2 className="text-3xl">Choose your flight</h2>
+          <div className="flights-container flex flex-col space-y-10">
+            {flights.map((flight) => (
+              <div className="flex flex-col space-y-2">
+                <p>From {flight.departure_airport_name}</p>
+                <p>To {flight.destination_airport_name}</p>
+                <p>Departure {flight.flight_destination}</p>
+                <p>Arrival {flight.flight_arrival}</p>
+                <p>Plane {flight.plane_name}</p>
 
-              <Dialog>
-                <DialogTrigger
-                  onClick={() => setSelectedSeat("")}
-                  className="bg-black text-white rounded-lg p-1"
-                >
-                  Book
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Flight {flight.flight_id}</DialogTitle>
-                    <DialogDescription>
-                      Select your seat and book the flight
-                    </DialogDescription>
-                  </DialogHeader>
-                  <label htmlFor="seat">Seat</label>
-                  <select
-                    id="seat"
-                    className="block w-full p-2 mt-2 border rounded-md"
-                    value={selectedSeat}
-                    onChange={(e) => setSelectedSeat(e.target.value)}
-                  >
-                    <option value="" disabled>
-                      Select a seat
-                    </option>
-                    {generateSeatOptions(flight.capacity).map((seat) => (
-                      <option key={seat} value={seat}>
-                        {seat}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    onClick={() => book(flight.flight_id)}
+                <Dialog>
+                  <DialogTrigger
+                    onClick={() => setSelectedSeat("")}
                     className="bg-black text-white rounded-lg p-1"
                   >
                     Book
-                  </button>
-                </DialogContent>
-              </Dialog>
-            </div>
-          ))}
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Flight {flight.flight_id}</DialogTitle>
+                      <DialogDescription>
+                        Select your seat and book the flight
+                      </DialogDescription>
+                    </DialogHeader>
+                    <label htmlFor="seat">Seat</label>
+                    <select
+                      id="seat"
+                      className="block w-full p-2 mt-2 border rounded-md"
+                      value={selectedSeat}
+                      onChange={(e) => setSelectedSeat(e.target.value)}
+                    >
+                      <option value="" disabled>
+                        Select a seat
+                      </option>
+                      {generateSeatOptions(flight.capacity).map((seat) => (
+                        <option key={seat} value={seat}>
+                          {seat}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      onClick={() => book(flight.flight_id)}
+                      className="bg-black text-white rounded-lg p-1"
+                    >
+                      Book
+                    </button>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
