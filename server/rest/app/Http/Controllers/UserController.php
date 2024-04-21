@@ -13,36 +13,35 @@ use Ramsey\Uuid\Uuid;
 class UserController extends Controller
 {
     public function register(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|string|unique:users',
-            'password' => 'required|string'
-        ]);
+{
+    $validation = Validator::make($request->all(), [
+        'name' => 'required|string',
+        'email' => 'required|string|unique:users',
+        'password' => 'required|string',
+        'age' => 'required|integer',
+        'sex' => 'required|string|max:1'
+    ]);
         
-        if ($validation->fails()) {
-            return response()->json($validation->errors()->all(), 400);
-        }
-        
-        $validated = $validation->validated();
-
-        DB::beginTransaction();
-        try {
-            $uuid = Uuid::uuid4();
-            $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-            DB::insert($sql, [
-                $validated['name'],
-                $validated['email'],
-                Hash::make($validated['password']),
-            ]);
-
-            DB::commit();
-            return response()->json(['message' => 'User registered successfully'], 201);
-        } catch (Exception $e) {
-            DB::rollback();
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+    if ($validation->fails()) {
+        return response()->json($validation->errors()->all(), 400);
     }
+        
+    $validated = $validation->validated();
+
+    try {
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'age' => $validated['age'],
+            'sex' => $validated['sex']
+        ]);
+
+        return response()->json(['message' => 'User registered successfully'], 201);
+    } catch (Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
     public function login(Request $request){
         $validation = Validator::make($request->all(),[
             "email"=>'required|string',
@@ -83,7 +82,7 @@ class UserController extends Controller
         }
         else{
             return response()->json([
-                'error' => "unauthenticated"
+                'error' => "can't find the token"
             ],401);
         }
         if(is_null($user)){
@@ -94,8 +93,6 @@ class UserController extends Controller
         return response() -> json([
             'email' => $user->email,
             'name' => $user->name,
-            'uuid' => $user->uuid,
-            'is_onboard' => $user->is_onboard,
             'access_token' => $request -> cookie('at'),
         ],200);
     }

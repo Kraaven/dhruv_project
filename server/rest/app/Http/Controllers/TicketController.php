@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Validator;
 class TicketController extends Controller
 {
     public function create(Request $request){
-        $validation = Validator::make($request->all(),[
-            "seat" => "required|string|unique:tickets",
+        $validation = Validator::make($request->all(), [
+            "seat" => ["required", "string", "unique:tickets", "regex:/^[a-z0-9]+$/"],
             "flight_id" => "required|integer",
         ]);
              
