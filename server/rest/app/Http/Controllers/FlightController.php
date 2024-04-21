@@ -17,8 +17,10 @@ class FlightController extends Controller
             'departure_airport.name as departure_airport_name',
             'destination_airport.name as destination_airport_name',
             'flights.flight_destination',
-            'flights.flight_arrival'
+            'flights.flight_arrival',
+            'planes.capacity'
         )
+        ->where("departure_airport.id",$airportId)
         ->get();
         return response()->json(["flights" => $flights],200);
     }

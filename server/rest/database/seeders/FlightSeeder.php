@@ -22,7 +22,7 @@ class FlightSeeder extends Seeder
                 "plane_id" => $flight["plane_id"],
                 "airport_id" => $flight["airport_id"],
                 "airport_destination_id" => $flight["airport_destination_id"],
-                "flight_destination" => $flight["destination"],
+                "flight_destination" => $flight["destination"], // departure not destination
                 "flight_arrival" => $flight["arrival"],
             ]);
           } 

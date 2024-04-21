@@ -8,6 +8,13 @@
             "arrival": "2024-05-01 12:00:00"
         },
         {
+            "plane_id": 1,
+            "airport_id": 1,
+            "airport_destination_id": 2,
+            "destination": "2024-05-01 13:00:00",
+            "arrival": "2024-05-01 15:00:00"
+        },
+        {
             "plane_id": 2,
             "airport_id": 2,
             "airport_destination_id": 3,

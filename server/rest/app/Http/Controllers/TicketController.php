@@ -10,7 +10,7 @@ class TicketController extends Controller
 {
     public function create(Request $request){
         $validation = Validator::make($request->all(), [
-            "seat" => ["required", "string", "unique:tickets", "regex:/^[a-z0-9]+$/"],
+            "seat" => ["required", "string", "unique:tickets", "regex:/^[A-Z]\d+$/"], 
             "flight_id" => "required|integer",
         ]);
              
