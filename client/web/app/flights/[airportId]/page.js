@@ -11,6 +11,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Navbar } from "@/components/navbar";
+import { toast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const page = ({ params }) => {
   const { airportId } = params;
@@ -61,17 +64,21 @@ const page = ({ params }) => {
   };
   const book = async (flight_id) => {
     if (selectedSeat != "") {
-      const resp = axios.post(
+      const resp = await axios.post(
         `${process.env.NEXT_PUBLIC_DOMAIN_NAME}/api/create-ticket`,
         { flight_id: flight_id, seat: selectedSeat },
         { Authorization: `Bearer ${token}` }
       );
+      toast({
+        title: "ticket booked!",
+      });
       console.log(resp);
     }
   };
 
   return (
     <div className="">
+      <Toaster />
       <Navbar />
       <div className="h-screen flex flex-col justify-center items-center">
         <div className="flex flex-col space-y-5">
@@ -115,12 +122,12 @@ const page = ({ params }) => {
                         </option>
                       ))}
                     </select>
-                    <button
+                    <DialogClose
                       onClick={() => book(flight.flight_id)}
                       className="bg-black text-white rounded-lg p-1"
                     >
                       Book
-                    </button>
+                    </DialogClose>
                   </DialogContent>
                 </Dialog>
               </div>
