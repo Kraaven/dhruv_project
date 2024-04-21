@@ -63,16 +63,23 @@ const page = ({ params }) => {
     });
   };
   const book = async (flight_id) => {
-    if (selectedSeat != "") {
-      const resp = await axios.post(
-        `${process.env.NEXT_PUBLIC_DOMAIN_NAME}/api/create-ticket`,
-        { flight_id: flight_id, seat: selectedSeat },
-        { Authorization: `Bearer ${token}` }
-      );
+    try {
+      if (selectedSeat != "") {
+        const resp = await axios.post(
+          `${process.env.NEXT_PUBLIC_DOMAIN_NAME}/api/create-ticket`,
+          { flight_id: flight_id, seat: selectedSeat },
+          { Authorization: `Bearer ${token}` }
+        );
+        toast({
+          title: "ticket booked!",
+        });
+        console.log(resp);
+      }
+    } catch (err) {
       toast({
-        title: "ticket booked!",
+        title: err.response.data[0],
+        variant: "destructive",
       });
-      console.log(resp);
     }
   };
 
