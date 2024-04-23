@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Role;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,37 @@ class UserController extends Controller
             'password' => Hash::make($validated['password']),
             'age' => $validated['age'],
             'sex' => $validated['sex']
+        ]);
+
+        return response()->json(['message' => 'User registered successfully'], 201);
+    } catch (Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
+    public function registerAdmin(Request $request)
+{
+    $validation = Validator::make($request->all(), [
+        'name' => 'required|string',
+        'email' => 'required|string|unique:users',
+        'password' => 'required|string',
+        'age' => 'required|integer',
+        'sex' => 'required|string|max:1'
+    ]);
+        
+    if ($validation->fails()) {
+        return response()->json($validation->errors()->all(), 400);
+    }
+        
+    $validated = $validation->validated();
+
+    try {
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'age' => $validated['age'],
+            'sex' => $validated['sex'],
+            "role" => Role::ADMIN->value
         ]);
 
         return response()->json(['message' => 'User registered successfully'], 201);

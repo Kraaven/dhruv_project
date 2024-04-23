@@ -7,7 +7,7 @@ const page = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [age, setAge] = useState("");
-  const [sex, setSex] = useState("");
+  const [sex, setSex] = useState("M");
   const register = async () => {
     if (email && password && name) {
       const resp = await axios.post(
